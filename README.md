@@ -44,6 +44,9 @@ The custom software interface should be written in Rust.
 https://gtk-rs.org/
 https://wiki.gnome.org/Apps/Glade
 
+https://discourse.gnome.org/t/onscreen-keyboard-integration-with-gtk-3-application/1626
+https://askubuntu.com/questions/903937/how-can-i-programmatically-call-ubuntus-on-screen-keyboard-in-gtk-python
+
 ### Powering the RPi3
 
 Ideally the RPi3 should be powered with a suitable powerbank [1].

@@ -7,3 +7,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4"
+gio = "0.9.0"
+glib = "0.10.3"
+
+[dependencies.gtk]
+version = "0.9.0"
+features = ["v3_16"]
+
