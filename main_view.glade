@@ -2,18 +2,22 @@
 <!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
-  <object class="GtkImage" id="backup_icon">
+  <object class="GtkImage" id="next_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="margin_end">2</property>
-    <property name="icon_name">media-floppy-symbolic</property>
+    <property name="icon_name">go-next-symbolic</property>
   </object>
-  <object class="GtkImage" id="restar">
+  <object class="GtkImage" id="prev_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-previous-symbolic</property>
+  </object>
+  <object class="GtkImage" id="restart_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">system-reboot-symbolic</property>
   </object>
-  <object class="GtkImage" id="shutdow">
+  <object class="GtkImage" id="shutdow_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">system-shutdown-symbolic</property>
@@ -79,7 +83,7 @@
                 <property name="margin_start">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="image">restar</property>
+                <property name="image">restart_icon</property>
                 <property name="always_show_image">True</property>
               </object>
               <packing>
@@ -97,7 +101,7 @@
                 <property name="margin_end">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="image">shutdow</property>
+                <property name="image">shutdow_icon</property>
                 <property name="always_show_image">True</property>
               </object>
               <packing>
@@ -114,57 +118,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="body">
+          <object class="GtkStack" id="body">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <child>
-              <object class="GtkLabel" id="from_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="margin_start">50</property>
-                <property name="margin_end">5</property>
-                <property name="label" translatable="yes">From:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="to_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="margin_start">50</property>
-                <property name="margin_end">5</property>
-                <property name="label" translatable="yes">To:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="daily_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="margin_start">50</property>
-                <property name="margin_end">5</property>
-                <property name="label" translatable="yes">Daily:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
             <child>
               <placeholder/>
             </child>
@@ -176,17 +132,49 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="backup">
-            <property name="label" translatable="yes">Backup</property>
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="margin_start">25</property>
-            <property name="margin_end">25</property>
-            <property name="margin_top">10</property>
-            <property name="margin_bottom">10</property>
-            <property name="image">backup_icon</property>
-            <property name="always_show_image">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="prev">
+                <property name="label" translatable="yes">Prev</property>
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="margin_start">10</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="image">prev_icon</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="next">
+                <property name="label" translatable="yes">Next</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">10</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="image">next_icon</property>
+                <property name="image_position">right</property>
+                <property name="always_show_image">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>

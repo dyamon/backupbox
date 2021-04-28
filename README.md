@@ -11,7 +11,8 @@ I figured I could put together a small portable device that would be able to aut
 The whole thing would need to be:
 
 - Simple:
-    it needs to do one thing, and has to do it well.
+    it needs to do one thing, and has to do it well, while adhering to the [workflow].
+    No useless customization or options.
     Hopefully it should be straightforward to use even for someone with limited technical skills;
 
 - Portable and compact: 
@@ -22,10 +23,24 @@ The whole thing would need to be:
 - Incremental:
     Backup should be incremental and duplicate backups should be avoided;
 
-- Customizable:
-    The entire system should have **sensible defaults** with customizable options for specific needs.
-
 ## Details
+
+### Workflow
+
+The entire project is built around the following workflow.
+Since the final product needs to be **simple**, the entire backup process should be straightforward.
+Options, customization and branches in the workflow should be avoided as much as possible.
+
+1. Power on the RPi
+1. Connect external microSD card
+1. Start backup from the welcome screen
+1. Select device to backup
+1. Select the destination of the backup
+1. Start the backup
+1. Power off the RPi when the process is complete
+1. Remove external microSD card
+
+The requirements might change with time and use, and as a consequence the workflow might change as well.
 
 ### Main board and touchscreen
 
@@ -47,11 +62,13 @@ https://wiki.gnome.org/Apps/Glade
 https://discourse.gnome.org/t/onscreen-keyboard-integration-with-gtk-3-application/1626
 https://askubuntu.com/questions/903937/how-can-i-programmatically-call-ubuntus-on-screen-keyboard-in-gtk-python
 
+Limitations on a small screen.
+
+On screen power off options will be also available.
+
 ### Powering the RPi3
 
 Ideally the RPi3 should be powered with a suitable powerbank [1].
-
-There should be a power button for ease of use.
 
 ### Custom enclosure
 
