@@ -65,7 +65,7 @@ fn setup_clock(clock: &gtk::Label) {
     c.set_text(&format!("{}:{}", time.hour(), time.minute()));
     glib::timeout_add_seconds_local(60, move || {
         let time = Local::now();
-        c.set_text(&format!("{}:{}", time.hour(), time.minute()));
+        c.set_text(&format!("{:02}:{:02}", time.hour(), time.minute()));
         glib::Continue(true)
     });
 }
