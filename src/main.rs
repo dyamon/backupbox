@@ -1,3 +1,4 @@
+use battery;
 use chrono::prelude::*;
 use gio::prelude::*;
 use gio::VolumeMonitor;
@@ -27,6 +28,13 @@ fn setup_gui(app: &Application) {
     setup_clock(
         &builder
             .get_object("clock")
+            .expect("Unable to find 'clock' Label object"),
+    );
+
+    // Setup battery in headerbar
+    setup_battery(
+        &builder
+            .get_object("battery_label")
             .expect("Unable to find 'clock' Label object"),
     );
 
@@ -60,6 +68,31 @@ fn setup_clock(clock: &gtk::Label) {
         c.set_text(&format!("{}:{}", time.hour(), time.minute()));
         glib::Continue(true)
     });
+}
+
+fn setup_battery(bat_label: &gtk::Label) {
+    let b = bat_label.clone();
+    let manager = battery::Manager::new().expect("Unable to instantiate battery manager");
+    let mut batteries = manager.batteries().expect("Unable to detect any battery");
+    if let Some(battery) = batteries.next() {
+        let mut battery = battery.expect("Unable to access battery");
+        b.set_text(&format!(
+            "{}%",
+            (battery.state_of_charge().value * 100.0) as i32
+        ));
+        glib::timeout_add_seconds_local(60, move || {
+            manager
+                .refresh(&mut battery)
+                .expect("Unable to refresh battery state");
+            b.set_text(&format!(
+                "{}%",
+                (battery.state_of_charge().value * 100.0) as i32
+            ));
+            glib::Continue(true)
+        });
+    } else {
+        b.set_text("NaN");
+    }
 }
 
 // fn setup_page(stack: gtk::Stack, prev: gtk::Button, next: gtk::Button, cur: i32, tot: i32) {
