@@ -99,16 +99,16 @@ fn setup_gui(app: &Application) {
         .get_object("prev")
         .expect("Unable to find 'prev' Button object");
     prev.connect_clicked({
-        let s = Rc::clone(&state);
-        move |_| s.borrow_mut().prev()
+        let state = Rc::clone(&state);
+        move |_| state.borrow_mut().prev()
     });
 
     let next: gtk::Button = builder
         .get_object("next")
         .expect("Unable to find 'next' Button object");
     next.connect_clicked({
-        let s = Rc::clone(&state);
-        move |_| s.borrow_mut().next()
+        let state = Rc::clone(&state);
+        move |_| state.borrow_mut().next()
     });
 
     {
