@@ -12,7 +12,7 @@ wall_r = 5;     // wall magnet housing radius
 // Powerbank measures
 pbank_w = 140;
 pbank_d = 72;
-pbank_h = 20;
+pbank_h = 15;
 pbank_r = 7.5;  // pbank corner radius (just an approximation)
 
 // RPi measures
@@ -21,9 +21,9 @@ rpi_d = 56;
 rpi_h = 25;
 
 // USB/SDcard reader measures
-usb_w = 121;
-usb_d = 22;
-usb_h = 21;
+usb_w = 124;
+usb_d = 23;
+usb_h = 20;
 usb_r = 5;
 
 // Magnets
@@ -164,12 +164,12 @@ module notched(height) {
 }
 
 // Powerbank housing
-union() {
+*union() {
     // Housing
     difference() {
         housing(pbank_h + 1.5 * wall_t + tollerance, bot_magnets = false);
         // Cut-outs
-        cutouts_notch = 3;
+        cutouts_notch = 2;
         cutouts_r = 2;
         translate([1.5 * wall_t, 2 * wall_r + tollerance / 2 + cutouts_notch, wall_t + tollerance / 2 + cutouts_notch])
             rotate([0, -90, 0])
@@ -212,7 +212,7 @@ union() {
     // Housing
     notched(wall_t / 2) difference() {
         union() {
-            housing(rpi_h + wall_t / 2 + tollerance);
+            housing(rpi_h + wall_t + tollerance);
             // Divider (Rpi/USB adapter)
             opening = 20;
             translate([wall_t + opening, usb_h + wall_t + tollerance, 0])
@@ -226,8 +226,8 @@ union() {
             1.5 * wall_t,
             wall_t + tollerance / 2 + usb_offset
         ]) rotate([90, 0, 0]) round_cube(usb_cutout.x, usb_cutout.y, 2 * wall_t, 2);
-        // RPi power opening
-        rpi_cutout = [42, rpi_h / 3];
+        // RPi power/hdmi/jack opening
+        rpi_cutout = [60, rpi_h / 3];
         translate([
             pbank_w + 2 * wall_t + tollerance / 2 - rpi_cutout.x - 2 * wall_r,
             pbank_d + 4 * wall_r + tollerance + wall_t / 2,
@@ -235,9 +235,10 @@ union() {
         ]) rotate([90, 0, 0]) round_cube(rpi_cutout.x, rpi_cutout.y, 2 * wall_t, 2);
     }
     // RPi mounts and ghost
+    adj = 2; // Ports in a RPi3 go a bit over the edge (check lid as well)
     translate([
         pbank_w + 2 * wall_t + tollerance / 2 - 2 * wall_r - rpi_w, 
-        pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d,
+        pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d - adj,
         1.5 * wall_t
     ]) union() {
         mounts = [[23.5, 3.5], [23.5, 3.5 + 49], [23.5 + 58, 3.5], [23.5 + 58, 3.5 + 49]];
@@ -280,9 +281,10 @@ union() {
                     magnet_r
                 );
             // Upper LCD cutout
+            adj = 2; // Ports in a RPi3 go a bit over the edge
             translate([
                 pbank_w + 2 * wall_t + tollerance / 2 - 2 * wall_r - rpi_w + 4, 
-                pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d + 3,
+                pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d + 3 - adj,
                 -rpi_h / 2,
             ]) cube([rpi_w - 7, rpi_d - 6, rpi_h]);
         }
