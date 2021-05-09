@@ -6,21 +6,21 @@ A portable device to backup your daily pictures from an SD card to a portable dr
 ## Motivation & Scope
 
 > Every time I go on vacation with my girlfriend, she asks me to backup all the picture she has taken with her camera to my laptop "just to be safe".
-> I figured I could put together a small portable device that is be able to automatically backup new pictures in a few simple steps, and spare my laptop the daily torture.
+> I figured I could put together a small portable device that is able to automatically backup new pictures in a few simple steps, and spare my laptop the daily torture.
 
 The whole thing needs to be:
 
-- Simple:
-    it needs to do one thing, and has to do it well, while adhering to the [workflow].
+- **Simple**:
+    it needs to do one thing, and has to do it well, while adhering to the [workflow][#workflow].
     No useless customization or options.
     Hopefully it should be straightforward to use even for someone with limited technical skills;
 
-- Portable and compact: 
+- **Portable and compact**: 
     it needs to be small enough so we can toss it in our bag and forget about it.
     Also it should be a single object, and not a bunch of components to be put together every time.
     No additional input device other than a touch screen should be required;
 
-- Incremental:
+- **Incremental**:
     Backup should be incremental and duplicate backups should be avoided;
 
 ## Details
@@ -64,7 +64,7 @@ The design was partially created using [Glade].
 
 After a limited number of attempts it seems like the RPi3 is not able to compile the project (especially the compilation of `gtk-rs` seems to take hours and then freeze the board completely).
 
-The easiest way to compile the project is to use Rust cross compilation tool `[cross]`.
+The easiest way to compile the project is using Rust cross compilation tool [`cross`][cross].
 
 *Further details on how to compile the project, along with precompiled binaries, will be published later on.*
 
@@ -74,7 +74,7 @@ Ideally the RPi3 can be powered with a [suitable powerbank].
 The prototype is being tested with a [2000000mAh powerbank] capable of outputting 5V/3A.
 
 An alternative route is to use a Li-Po battery attached directly to the RPi.
-While this solution might be more compact, a generic powerbank can be detached from the build and used for to charge other devices as well.
+While this solution might be more compact, a generic powerbank can be detached from the build and used to charge other devices as well.
 
 ### Custom enclosure
 
@@ -84,14 +84,14 @@ The design was developed with [OpenSCAD] and is as parametrized as possible to a
 Here is an early prototype for the case:
 
 <p align="center">
-  <img src="resources/enclosure.png" alt="A screenshot of an early version of the custom 3D enclosure in OpenSCAD."/>
+  <img width=500 src="resources/enclosure.png" alt="A screenshot of an early version of the custom 3D enclosure in OpenSCAD."/>
 </p>
 
 ## Skills learned so far
 
 - [X] Rust [interior mutability] pattern for shared ownership with mutability constraints checked at runtime;
-- [X] Rust cross compilation via `[cross]`;
-- [X] Basics of GTK 3 and `[gtk-rs]` library for Rust;
+- [X] Rust cross compilation via `cross`[cross];
+- [X] Basics of GTK 3 and `gtk-rs` library for Rust;
 - [X] OpenSCAD design beyond the tutorial.
 
 ## Acknowledgements
