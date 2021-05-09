@@ -30,6 +30,8 @@ usb_r = 5;
 magnet_r = 3;
 magnet_h = 4;
 
+*cube([278, 156 ,300]);
+
 module round_cube_poles(w, d, h, r) {
     linear_extrude(height = h) {
         translate([r, r, 0]) circle(r);
@@ -164,6 +166,8 @@ module notched(height) {
 }
 
 // Powerbank housing
+translate([pbank_d + 4 * wall_r + tollerance, 0, 0])
+rotate([0, 0, 90])
 union() {
     // Housing
     difference() {
@@ -207,7 +211,9 @@ union() {
 }
 
 // RPi housing
-translate([0, 0, 3 * pbank_h])
+//translate([0, 0, 3 * pbank_h])
+translate([2 * (pbank_d + 4 * wall_r + tollerance) + 10, 0, 0])
+rotate([0, 0, 90])
 union() {
     // Housing
     notched(wall_t / 2) difference() {
@@ -261,7 +267,9 @@ union() {
 }
 
 // RPi lid
-translate([0, 0, 7 * pbank_h])
+//translate([0, 0, 7 * pbank_h])
+translate([3 * (pbank_d + 4 * wall_r + tollerance) + 20, 0, 0])
+rotate([0, 0, 90])
 union() {
     difference() {
         notched(wall_t / 2)
