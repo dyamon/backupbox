@@ -5,8 +5,8 @@ A portable device to backup your daily pictures from an SD card to a portable dr
 
 ## Motivation & Scope
 
-> Every time I go on vacation with my girlfriend, she asks me to backup the daily picture she has taken with her DLSR camera to my laptop "just to be safe".
-> I figured I could put together a small portable device that would be able to automatically backup new pictures in a few simple steps, and spare my laptop the daily torture.
+> Every time I go on vacation with my girlfriend, she asks me to backup all the picture she has taken with her camera to my laptop "just to be safe".
+> I figured I could put together a small portable device that is be able to automatically backup new pictures in a few simple steps, and spare my laptop the daily torture.
 
 The whole thing needs to be:
 
@@ -16,7 +16,7 @@ The whole thing needs to be:
     Hopefully it should be straightforward to use even for someone with limited technical skills;
 
 - Portable and compact: 
-    it needs to be small enough so we toss it in the luggage and forget about it.
+    it needs to be small enough so we can toss it in our bag and forget about it.
     Also it should be a single object, and not a bunch of components to be put together every time.
     No additional input device other than a touch screen should be required;
 
@@ -29,7 +29,7 @@ The whole thing needs to be:
 
 The entire project is built around the following workflow.
 Since the final product needs to be **simple**, the entire backup process should be straightforward.
-Options, customization and branches in the workflow should be avoided as much as possible.
+Options, customization and branches in the workflow have been avoided as much as possible.
 
 1. Power on the RPi
 1. Connect external microSD card
@@ -58,24 +58,15 @@ In this case a [mini thumb drive] (~128GB) should be enough.
 The custom software interface is written in Rust using the [`gtk-rs` library][gtk-rs].
 The design was partially created using [Glade].
 
-To install GTK 3:
-```{#install_gtk3 .sh}
-sudo apt-get install libgtk-3-dev
-```
+<p align="center">
+  <img src="resources/gui1.png" alt="A screenshot of an early version of the GTK3 GUI."/>
+</p>
 
-To install Rust (note the [`RUSTUP_UNPACK_RAM` configuration][rustup ram issue]):
-```{#install_rust .sh}
-export RUSTUP_UNPACK_RAM=16777216
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
+After a limited number of attempts it seems like the RPi3 is not able to compile the project (especially the compilation of `gtk-rs` seems to take hours and then freeze the board completely).
 
-To compile and run the project:
-```{#install_project .sh}
-mkdir -p ~/git && cd ~/git
-git clone https://git.dyamon.me/backupbox/
-cd backupbox
-cargo build
-```
+The easiest way to compile the project is to use Rust cross compilation tool `[cross]`.
+
+*Further details on how to compile the project, along with precompiled binaries, will be published later on.*
 
 ### Powering the RPi3
 
@@ -83,7 +74,7 @@ Ideally the RPi3 can be powered with a [suitable powerbank].
 The prototype is being tested with a [2000000mAh powerbank] capable of outputting 5V/3A.
 
 An alternative route is to use a Li-Po battery attached directly to the RPi.
-While this solution might be more compact, a generic powerbank can be used for other things as well.
+While this solution might be more compact, a generic powerbank can be detached from the build and used for to charge other devices as well.
 
 ### Custom enclosure
 
@@ -91,10 +82,21 @@ I'm working on a simple prototype for a custom 3D printed enclosure to hold the 
 The design was developed with [OpenSCAD] and is as parametrized as possible to allow variations is the size of the different components.
 
 Here is an early prototype for the case:
+
 <p align="center">
-  <img src="https://git.dyamon.me/backupbox/plain/resources/enclosure.png" alt="A screenshot of an early version of the custom 3D enclosure."/>
+  <img src="resources/enclosure.png" alt="A screenshot of an early version of the custom 3D enclosure in OpenSCAD."/>
 </p>
 
+## Skills learned so far
+
+- [X] Rust [interior mutability] pattern for shared ownership with mutability constraints checked at runtime;
+- [X] Rust cross compilation via `[cross]`;
+- [X] Basics of GTK 3 and `[gtk-rs]` library for Rust;
+- [X] OpenSCAD design beyond the tutorial.
+
+## Acknowledgements
+
+*todo*
 
 [Raspberry Pi 3 Model B]: https://www.raspberrypi.org/products/raspberry-pi-3-model-b/
 [touchscreen]: https://thepihut.com/products/spi-3-5-320x480-touch-screen-gpio
@@ -105,5 +107,6 @@ Here is an early prototype for the case:
 [rustup ram issue]: https://github.com/rust-lang/rustup/issues/2128
 [suitable powerbank]: https://www.reddit.com/r/raspberry_pi/comments/fvfn4w/raspberry_pi_powered_from_a_powerbank_part_two/
 [2000000mAh powerbank]: https://www.ebay.co.uk/itm/223949142966
-[OpenSCAD]: 
-
+[OpenSCAD]: https://openscad.org/ 
+[interior mutability]: https://doc.rust-lang.org/beta/book/ch15-05-interior-mutability.html
+[cross]: https://github.com/rust-embedded/cross 
