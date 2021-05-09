@@ -164,7 +164,7 @@ module notched(height) {
 }
 
 // Powerbank housing
-*union() {
+union() {
     // Housing
     difference() {
         housing(pbank_h + 1.5 * wall_t + tollerance, bot_magnets = false);
@@ -291,9 +291,31 @@ union() {
         // Lower LCD cutout
         translate([
             pbank_w + 2 * wall_t + tollerance / 2 - 2 * wall_r - rpi_w - 1.5, 
-            pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d - 2,
+            pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d - 4,
             0,
-        ]) cube([rpi_w + 3, rpi_d + 4, wall_t / 2]);
+        ]) cube([rpi_w + 3, rpi_d + 6, wall_t / 2]);
+        // Top honeycomb patterns
+        translate([0, 0, - wall_t / 2])
+            linear_extrude(height = 4 * wall_t)
+            intersection() {
+                honeycomb(size = [pbank_w + 2 * wall_t + tollerance, pbank_d + 4 * wall_r + tollerance], hexagon_r = 8, round = 2, spacing = 3, offset = [3, 3]);
+                translate([wall_t + tollerance / 2, wall_t + tollerance / 2, 0])
+                    offset(r = -2)
+                    difference() {
+                        width = pbank_w;
+                        depth = pbank_d + 4 * wall_r - 2 * wall_t;
+                        square([width, depth]);
+                        circle(wall_r);
+                        translate([0, depth, 0]) circle(wall_r);
+                        translate([width, 0, 0]) circle(wall_r);
+                        translate([width, depth, 0]) circle(wall_r);
+                        translate([
+                            pbank_w + tollerance / 2 - 2 * wall_r - rpi_w + 3 + 2.5, 
+                            pbank_d + 4 * wall_r + tollerance / 2 - wall_t - rpi_d - 5,
+                            0
+                        ]) square([rpi_w - 3, rpi_d - 2]);
+                    }
+            }
     }
 }
 
